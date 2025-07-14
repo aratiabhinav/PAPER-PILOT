@@ -1,71 +1,144 @@
-# Getting Started with Create React App
+# PAPER‑PILOT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web‑based tool to streamline research paper reading using large language models (LLMs). PAPER‑PILOT provides automatic text and table extraction from PDFs, summarization, and an interactive Q&A interface powered by a Retrieval‑Augmented Generation (RAG) pipeline.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- **PDF/Text Upload**  
+  - Drag‑and‑drop or select research papers in PDF/text format.
+  - Extracts raw text using PyMuPDF and PyPDF2.
+  - Extracts tables and converts them to CSV via pdfplumber. :contentReference[oaicite:8]{index=8}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Summarization**  
+  - Splits long documents into manageable chunks with RecursiveCharacterTextSplitter.
+  - Generates concise summaries using an Ollama‑hosted Llama3 model (via Ollama). :contentReference[oaicite:9]{index=9}
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Question & Answer (Q&A)**  
+  - Builds a vector store in ChromaDB from document embeddings.
+  - Answers user queries with RAG: retrieves relevant chunks, then generates responses via the LLM. :contentReference[oaicite:10]{index=10}
 
-### `npm test`
+- **Web Scraping (Optional)**  
+  - Scrapes HTML content from publisher websites (IEEE, Springer, etc.) using BeautifulSoup4 and Requests.
+  - Provides automated data extraction for unsupported formats. :contentReference[oaicite:11]{index=11}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Interactive Frontend**  
+  - **React** application bootstrapped with Create React App.  
+  - **Node.js** server (optional) for API proxy or authentication.  
+  - Responsive design with **HTML**, **CSS**, and reusable components. :contentReference[oaicite:12]{index=12}
 
-### `npm run build`
+- **Backend API**  
+  - **Flask** handles file uploads (`/upload`) and query requests (`/ask`).
+  - Returns JSON responses with summaries or answers. :contentReference[oaicite:13]{index=13}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Frontend**  
+  - React.js (Create React App)  
+  - HTML5 & CSS3
 
-### `npm run eject`
+- **Backend**  
+  - Python 3.9+ with Flask  
+  - PDF processing: PyMuPDF, PyPDF2, pdfplumber  
+  - Web scraping: BeautifulSoup4, Requests  
+  - LLM & RAG: Ollama (Llama3), ChromaDB, LangChain
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Other**  
+  - Node.js (for any additional server logic)  
+  - Git & GitHub for version control  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📂 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+PAPER-PILOT/
+├── public/ # Static assets
+├── src/ # React source code
+│ ├── components/ # UI components
+│ ├── pages/ # View-level components
+│ └── App.js # Main React component
+├── backend/ # Flask application
+│ ├── app.py # Flask routes & entrypoint
+│ ├── models/ # LLM loading & summarization logic
+│ └── utils/ # PDF/text extraction, RAG pipeline
+├── .gitignore
+├── package.json # Frontend dependencies & scripts
+├── requirements.txt # Python dependencies
+└── README.md # This file
 
-## Learn More
+yaml
+Copy
+Edit
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ⚙️ Installation & Setup
 
-### Code Splitting
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/aratiabhinav/PAPER-PILOT.git
+   cd PAPER-PILOT
+Backend (Flask)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+bash
+Copy
+Edit
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+# Configure any environment variables (e.g., OLLAMA_HOST, CHROMA_DB_PATH)
+flask run
+Frontend (React)
 
-### Analyzing the Bundle Size
+bash
+Copy
+Edit
+cd ../
+npm install
+npm start
+The app will open at http://localhost:3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+📝 Usage
+Upload a PDF or text file via the frontend interface.
 
-### Making a Progressive Web App
+Wait for text and table extraction to complete.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+View the autogenerated summary.
 
-### Advanced Configuration
+Ask follow‑up questions in the Q&A panel; responses are powered by the RAG pipeline.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+👥 Team
+A. Abhinav – 22BD1A6704
 
-### Deployment
+Ch. Vaishnavi – 22BD1A6711
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+C. Srinidhi – 22BD1A6712
 
-### `npm run build` fails to minify
+G. Hemanth Kumar – 22BD1A6720
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# PAPER-PILOT" 
+K. Sharvani – 22BD1A6727
+
+R. Sathwik Reddy – 22BD1A6749 
+
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
+
+diff
+Copy
+Edit
+
+This README replaces the default Create React App instructions with:
+
+- A clear project overview  
+- Detailed feature list  
+- Tech‑stack breakdown  
+- Setup & usage instructions  
+- Project structure  
+- Team credits  
+
+Feel free to tweak any paths, environment variable names, or commands to fit your code.
+::contentReference[oaicite:7]{index=7}
